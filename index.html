@@ -5,12 +5,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="The best car deals you can find!">
-    <meta name="author" content="" />
-    <link rel="stylesheet" href="resources/material-design-lite/material.red-indigo.min.css" />
+    <meta name="author" content="Bernard Dushimimana" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script defer src="./js/app.js" type="module"></script>
     <title>Car Deals</title>
 </head>
 
 <body>
+    <header>
+        <div>Car Deals</div>
+        <button onclick="location.reload()">Refresh</button>
+    </header>
+    <main>
+        <button class="center">Load More</button>
+    </main>
+    <script id="car-card" type="text/template">
+          <div class="card" style="background-image: url('${image}')"
+              onclick="pageEvents.loadCarPage('${details_id}')">
+            <div class="card-text">${brand} ${model} ${year} ($${price})</div>
+          </div>
+    </script>
 </body>
 
 </html>
