@@ -1,0 +1,1 @@
+const carInstance = localforage.createInstance({name: "cars"}) 
