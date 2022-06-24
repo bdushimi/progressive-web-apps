@@ -39,6 +39,14 @@ if (workbox) {
   {
     "url": "images/icon/icon.svg",
     "revision": "0d077eac3b5028d3543f7e35908d6ecb"
+  },
+  {
+    "url": "pages/offline.html",
+    "revision": "09b9feaee1fbd9d3f27253d24b7911c9"
+  },
+  {
+    "url": "pages/404.html",
+    "revision": "1a6cf0261a93d2c998c813d5588856bb"
   }
 ]);
 
@@ -54,6 +62,29 @@ if (workbox) {
             ]
         })
     );
+
+    const articleHandler = workbox.strategies.networkFirst({
+        cacheName: 'articles-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+            })
+        ]
+    });
+
+    workbox.routing.registerRoute(/(.*)article(.*)\.html/, args => { 
+        return articleHandler.handle(args).then(response => {
+            if (!response) {
+                return caches.match('pages/offline.html');
+            } else if (response.status === 404) {
+                return caches.match('pages/404.html');
+            }
+            return response;
+        });
+    });
+
+
+
 
 } else {
     console.log(`Boo! Workbox didn't load 😬`);
