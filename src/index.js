@@ -12,4 +12,4 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(<Provider store={store}><BrowserRouter><Main/></BrowserRouter></Provider>, document.getElementById('root'));
 
-serviceWorker.unregister();
+serviceWorker.register();
